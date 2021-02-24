@@ -102,14 +102,14 @@ class Tile {
     });
   }
 
-  getZoomLevels() {
-    let zoomLevels = 16;
-    const SELECT_SQL = 'select count(*) from (select zoom_level from tiles group by zoom_level)';
+  getMaxZoomLevel() {
+    let zoomLevel = 16;
+    const SELECT_SQL = 'select * from (select zoom_level from tiles group by zoom_level order by zoom_level DESC LIMIT 1)';
     return this.executeQuery(SELECT_SQL).then((result) => {
       if (result) {
-        zoomLevels = result.values[0][0];
+        zoomLevel = result.values[0][0];
       }
-      return zoomLevels;
+      return zoomLevel;
     });
   }
 }
