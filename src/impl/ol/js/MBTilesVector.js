@@ -16,11 +16,11 @@ const DEFAULT_TILE_SIZE = 256;
  * @function
  * @private
  */
-const generateResolutions = (extent, tileSize, zoomLevels) => {
+const generateResolutions = (extent, tileSize, maxZoomLevel) => {
   const width = ol.extent.getWidth(extent);
   const size = width / tileSize;
-  const resolutions = new Array(zoomLevels);
-  for (let z = 0; z < zoomLevels; z += 1) {
+  const resolutions = new Array(maxZoomLevel + 1);
+  for (let z = 0; z < maxZoomLevel + 1; z += 1) {
     resolutions[z] = size / (2 ** z);
   }
   return resolutions;
@@ -100,7 +100,7 @@ class MBTilesVector extends M.impl.layer.Vector {
      * @private
      * @type {number}
      */
-    this.zoomLevels_ = userParameters.zoomLevels || null;
+    this.maxZoomLevel = userParameters.maxZoomLevel || null;
   }
 
   /**
@@ -132,11 +132,11 @@ class MBTilesVector extends M.impl.layer.Vector {
 
     if (!this.tileLoadFunction) {
       this.fetchSource().then((tileProvider) => {
-        tileProvider.getZoomLevels().then((zoomLevels) => {
-          if (!this.zoomLevels_) {
-            this.zoomLevels_ = zoomLevels;
+        tileProvider.getMaxZoomLevel().then((maxZoomLevel) => {
+          if (!this.maxZoomLevel) {
+            this.maxZoomLevel = maxZoomLevel;
           }
-          const resolutions = generateResolutions(extent, DEFAULT_TILE_SIZE, this.zoomLevels_);
+          const resolutions = generateResolutions(extent, DEFAULT_TILE_SIZE, this.maxZoomLevel);
           this.tileProvider_ = tileProvider;
           this.tileProvider_.getExtent().then((mbtilesExtent) => {
             let reprojectedExtent = mbtilesExtent;
@@ -174,7 +174,7 @@ class MBTilesVector extends M.impl.layer.Vector {
         });
       });
     } else {
-      const resolutions = generateResolutions(extent, DEFAULT_TILE_SIZE, this.zoomLevels_ || 16);
+      const resolutions = generateResolutions(extent, DEFAULT_TILE_SIZE, this.maxZoomLevel || 16);
       this.ol3Layer = this.createLayer({
         resolutions,
         extent,
@@ -217,7 +217,7 @@ class MBTilesVector extends M.impl.layer.Vector {
       visible: this.visibility,
       opacity: this.opacity_,
       zIndex: this.zIndex_,
-      extent: this.maxExtent_ || opts.extent,
+      extent: this.maxExtent_ || opts.sourceExtent,
       source: new ol.source.VectorTile({
         projection: opts.projection,
         url: '{z},{x},{y}',

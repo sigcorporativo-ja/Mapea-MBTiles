@@ -221,7 +221,7 @@ class MBTiles extends M.impl.Layer {
       visible: this.visibility,
       opacity: this.opacity_,
       zIndex: this.zIndex_,
-      extent: this.maxExtent_ || opts.extent,
+      extent: this.maxExtent_ || opts.sourceExtent,
       source: new ol.source.XYZ({
         url: '{z},{x},{y}',
         projection: opts.projection,
