@@ -42,16 +42,18 @@ class Tile {
   getTile(tileCoord) {
     const SELECT_SQL = 'select tile_data from tiles where zoom_level={z} and tile_column={x} and tile_row={y}';
     const PREPARED = SELECT_SQL.replace('{z}', tileCoord[0]).replace('{x}', tileCoord[1]).replace('{y}', tileCoord[2]);
-    let byteTile = this.tiles_[tileCoord] || null;
+    const byteTile = this.tiles_[tileCoord] || null;
     let tile = DEFAULT_WHITE_TILE;
-    if (this.db_ && !byteTile) {
+    if (this.db_ && M.utils.isNullOrEmpty(byteTile)) {
       const select = this.db_.exec(PREPARED)[0];
       if (!M.utils.isNullOrEmpty(select)) {
-        byteTile = select.values[0][0];
-        tile = bytesToBase64(byteTile);
+        const selectTile = select.values[0][0];
+        tile = bytesToBase64(selectTile);
+        this.setTile(tileCoord, tile);
       }
+    } else {
+      tile = byteTile;
     }
-    this.setTile(tileCoord, tile);
     return tile;
   }
 
