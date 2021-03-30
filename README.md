@@ -116,16 +116,16 @@ index.html
 
 - Constructor:
   
-  new M.layer.MBTiles(data, options)
-  
-  data: El fichero  que contiene la información de mbtiles (.mbtiles). Tipo: [Response](https://developer.mozilla.org/es/docs/Web/API/Response) | 
-  [File](https://developer.mozilla.org/es/docs/Web/API/File) | 
-  [Uint8Array](https://developer.mozilla.org/es/docs/Web/JavaScript/Referencia/Objetos_globales/Uint8Array)
-  
-  options: 
-  Estructura:
+  new M.layer.MBTiles(options)
+  options: {object}
+
   ```javascript
   const options = {
+      source, // El fichero  que contiene la información de mbtiles (.mbtiles)
+              // Tipo: 
+              | Response: https://developer.mozilla.org/es/docs/Web/API/Response 
+              | File: https://developer.mozilla.org/es/docs/Web/API/File 
+              | Uint8Array: https://developer.mozilla.org/es/docs/Web/JavaScript/Referencia/Objetos_globales/Uint8Array
       extent, // extensión de la capa. Opcional
       name, // Nombre interno de la capa. Opcional
       legend, // Leyenda para mostrar en TOC. Opcional
@@ -134,7 +134,7 @@ index.html
       opacity, // Opacidad de la capa. Numero entre [0-1]
       zoomLevels // Numero de niveles de zoom de la capa. 16 por defecto,
       tileLoadFunction, // Función de carga de los tiles. Recibe las coordenadas x,y,z
-                        // y devuelve una promesa con el dato con la imagen en base64 para esas coordenadas.
+                        // y devuelve una promesa con el dato con la imagen en base64 o la URL de dicha imagen para esas coordenadas.
     }
   }
   ```
@@ -142,16 +142,16 @@ index.html
 
 - Constructor:
   
-  new M.layer.MBTilesVector(data, options, inheritedOpts)
+  new M.layer.MBTilesVector(options, inheritedOpts)
   
-  data: El fichero  que contiene la información de mbtiles (.mbtiles). Tipo: [Response](https://developer.mozilla.org/es/docs/Web/API/Response) | 
-  [File](https://developer.mozilla.org/es/docs/Web/API/File) | 
-  [Uint8Array](https://developer.mozilla.org/es/docs/Web/JavaScript/Referencia/Objetos_globales/Uint8Array)
-  
-  options: 
-  Estructura:
+  options: {object}
   ```javascript
   const options = {
+      source, // El fichero  que contiene la información de mbtiles (.mbtiles)
+              // Tipo: 
+              | Response: https://developer.mozilla.org/es/docs/Web/API/Response 
+              | File: https://developer.mozilla.org/es/docs/Web/API/File 
+              | Uint8Array: https://developer.mozilla.org/es/docs/Web/JavaScript/Referencia/Objetos_globales/Uint8Array
       name, // Nombre interno de la capa. Opcional
       legend, // Leyenda para mostrar en TOC. Opcional,
       maxExtent, // Extensión máxima de la capa. Opcional
@@ -161,14 +161,14 @@ index.html
       tileLoadFunction, // Función de carga de los tiles. Recibe las coordenadas x,y,z
                         // y devuelve una promesa con el dato .pbf para esas coordenadas.
     }
-  }
-
-  const inheritedOpts = {
-      style, // Nombre interno de la capa. Opcional
-    }
-  }
-
   ```
+   inheritedOpts: {object}
+
+    ```javascript
+    const inheritedOpts = {
+      style, // Parametro del estilo de la capa. Typo: M.Style. Opcional
+    }
+    ```
 ### Extensiones de M.Map
 
 - M.Map.prototype.addMBTiles
