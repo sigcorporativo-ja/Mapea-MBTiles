@@ -101,16 +101,15 @@ index.html
 
 - Constructor:
   
-  new M.layer.MBTiles(data, options)
-  
-  data: El fichero  que contiene la información de mbtiles (.mbtiles). Tipo: [Response](https://developer.mozilla.org/es/docs/Web/API/Response) | 
-  [File](https://developer.mozilla.org/es/docs/Web/API/File) | 
-  [Uint8Array](https://developer.mozilla.org/es/docs/Web/JavaScript/Referencia/Objetos_globales/Uint8Array)
+  new M.layer.MBTiles(options)
   
   options: 
   Estructura:
   ```javascript
   const options = {
+      data,//El fichero  que contiene la información de mbtiles (.mbtiles). Tipo: [Response](https://developer.mozilla.org/es/docs/Web/API/Response) | 
+            // [File](https://developer.mozilla.org/es/docs/Web/API/File) | 
+            // [Uint8Array](https://developer.mozilla.org/es/docs/Web/JavaScript/Referencia/Objetos_globales/Uint8Array)
       extent, // extensión de la capa. Opcional
       name, // Nombre interno de la capa. Opcional
       legend, // Leyenda para mostrar en TOC. Opcional
@@ -127,16 +126,15 @@ index.html
 
 - Constructor:
   
-  new M.layer.MBTilesVector(data, options, inheritedOpts)
-  
-  data: El fichero  que contiene la información de mbtiles (.mbtiles). Tipo: [Response](https://developer.mozilla.org/es/docs/Web/API/Response) | 
-  [File](https://developer.mozilla.org/es/docs/Web/API/File) | 
-  [Uint8Array](https://developer.mozilla.org/es/docs/Web/JavaScript/Referencia/Objetos_globales/Uint8Array)
+  new M.layer.MBTilesVector(options, inheritedOpts)
   
   options: 
   Estructura:
   ```javascript
   const options = {
+      data,//El fichero  que contiene la información de mbtiles (.mbtiles). Tipo: [Response](https://developer.mozilla.org/es/docs/Web/API/Response) | 
+            // [File](https://developer.mozilla.org/es/docs/Web/API/File) | 
+            // [Uint8Array](https://developer.mozilla.org/es/docs/Web/JavaScript/Referencia/Objetos_globales/Uint8Array)
       name, // Nombre interno de la capa. Opcional
       legend, // Leyenda para mostrar en TOC. Opcional,
       maxExtent, // Extensión máxima de la capa. Opcional
@@ -149,7 +147,7 @@ index.html
   }
 
   const inheritedOpts = {
-      style, // Nombre interno de la capa. Opcional
+      style, // Estilo de Mapea para la capa (M.style.Point|M.style.Line|M.style.Polygon). Opcional
     }
   }
 
