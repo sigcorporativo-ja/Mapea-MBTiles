@@ -83,9 +83,8 @@ $ npm run build -- -P <perfil>
   ```
    inheritedOpts: {object}
 
-    ```javascript
-    const inheritedOpts = {
-      style, // Parametro del estilo de la capa. Typo: M.Style. Opcional
+  const inheritedOpts = {
+      style, // Estilo de Mapea para la capa (M.style.Point|M.style.Line|M.style.Polygon). Opcional
     }
     ```
 ### Extensiones de M.Map
