@@ -200,7 +200,6 @@ MBTilesVector.DEFAULT_PARAMS = {
 MBTilesVector.DEFAULT_OPTIONS_STYLE = {
   point: {
     ...MBTilesVector.DEFAULT_PARAMS,
-    radius: 5,
   },
   line: {
     ...MBTilesVector.DEFAULT_PARAMS,
