@@ -178,7 +178,7 @@ class MBTilesVector extends M.layer.Vector {
  * @public
  * @api
  */
-MBTilesVector.DEFAULT_OPTIONS_STYLE = {
+MBTilesVector.DEFAULT_PARAMS = {
   fill: {
     color: '#fff',
     opacity: 0.6,
@@ -188,6 +188,25 @@ MBTilesVector.DEFAULT_OPTIONS_STYLE = {
     width: 2,
   },
   radius: 5,
+};
+
+/**
+ * Default generic style for this layer
+ * @const
+ * @type {object}
+ * @public
+ * @api
+ */
+MBTilesVector.DEFAULT_OPTIONS_STYLE = {
+  point: {
+    ...MBTilesVector.DEFAULT_PARAMS,
+  },
+  line: {
+    ...MBTilesVector.DEFAULT_PARAMS,
+  },
+  polygon: {
+    ...MBTilesVector.DEFAULT_PARAMS,
+  },
 };
 
 export default MBTilesVector;
