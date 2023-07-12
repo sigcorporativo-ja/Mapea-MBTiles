@@ -1,7 +1,7 @@
 /**
  * @module M/impl/layer/MBTilesVector
  */
-import { inflate } from 'pako';
+
 import TileProvider from 'facade/provider/Tile';
 
 /**
@@ -221,7 +221,7 @@ class MBTilesVector extends M.impl.layer.Vector {
       source: new ol.source.VectorTile({
         projection: opts.projection,
         url: '{z},{x},{y}',
-        tileLoadFunction: tile => tileLoadFn(tile, mvtFormat, opts),
+        tileLoadFunction: tile => tileLoadFn(tile, mvtFormat, opts, this),
         tileGrid: new ol.tilegrid.TileGrid({
           extent: opts.sourceExtent,
           origin: ol.extent.getBottomLeft(opts.sourceExtent),
@@ -276,13 +276,17 @@ class MBTilesVector extends M.impl.layer.Vector {
       const tileCoord = tile.getTileCoord();
       target.tileLoadFunction(tileCoord[0], tileCoord[1], -tileCoord[2] - 1).then((_vectorTile) => {
         if (_vectorTile) {
-          const vectorTile = inflate(_vectorTile);
-          const features = formatter.readFeatures(vectorTile, {
-            extent,
-            featureProjection: projection,
-          });
-          tile.setFeatures(features);
-          tile.setState(2); // ol/TileState#LOADED
+          try {
+            const vectorTile = new Uint8Array(_vectorTile);
+            const features = formatter.readFeatures(vectorTile, {
+              extent,
+              featureProjection: projection,
+            });
+            tile.setFeatures(features);
+            tile.setState(2); // ol/TileState#LOADED
+          } catch (e) {
+            tile.setState(3); // ol/TileState#ERROR
+          }
         } else {
           tile.setState(3); // ol/TileState#ERROR
         }
