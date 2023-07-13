@@ -104,8 +104,9 @@ $ npm run build -- -P <perfil>
 ## Matriz de compatibilidad
 | Mapea-MBTiles | Mapea   |
 | ------------- | ------- |
-| 1.0.0         | =6.0.0 |
+| 1.0.0         | =6.0.0  |
 | 1.1.0         | >=6.1.0 |
+| 1.2.0         | >=6.1.0 |
 
 ## Uso
 
